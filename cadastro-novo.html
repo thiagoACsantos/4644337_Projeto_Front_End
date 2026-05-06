@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <!--Menu superior navegavel //thiago_4644337 -->
+        <header>
+            <button class="menu-toggle">☰</button>
+            <nav>
+                <ul>
+                    <li><a href = "index.html">Home</a></li>
+                    <li><a href = "login.html">Login</a></li>
+                    <li><a href = "lanchonete.html">Lanchonetes/Cardápio</a></li>
+                    <li><a href = "carrinho.html">Carrinho</a></li>
+                </ul>
+            </nav>
+            <!-- Mostrando primeiro nome do usúario quando logado// thiago_4644337-->
+            <div id="user-icon" style = "display: none;">
+                <span id = "user-name"></span>
+                <div id = "user-menu" style = "display: none;">
+                    <p id = "user-info"></p>
+                    <button id = "logout-btn">Sair</button>
+                </div>
+            </div>
+        </header>
+        <!--Tela principal do cadastro //thiago_4644337 -->
+        <main>
+            <section class = "form-section">
+                <h2>Cadastro</h2>
+                <form id="cadastro-form">
+                    <label for = "nome">Nome:</label>
+                    <input type = "text" id = "nome" required>
+                    <label for = "cpf">CPF:</label>
+                    <input type = "text" id = "cpf" required>
+                    <label for = "endereco">Endereço:</label>
+                    <input type = "text" id = "endereco" required>
+                    <label for ="email">Email:</label>
+                    <input type = "email" id = "email" required>
+                    <label for = "senha">Senha:</label>
+                    <input type = "password" id = "senha" required>
+                    <!-- Alerta de autorização de uso de informações pessoais LGPD -->
+                    <div class = "lgpd">
+                        <p>Alerta de Privacidade: Seus dados serão utilizados apenas para fins de cadastro, promoções internas e campanhas de benefício ao cliente, não sendo compartilhados com terceiros. Em conformidade com LGPD.</p>
+                        <label>
+                            <input type="checkbox" id = "consentimento" required>
+                            Concordo com os termos de proteção de dados LGPD.
+                        </label>
+                    </div>
+                    <button type = "submit">Cadastrar</button>
+                </form>
+                <p>Já possui conta? <a href="login.html">Clique aqui para entrar</a></p>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2026 D.Francisca. Todos os direitos reservados.</p>
+        </footer>
+        <!-- ATENÇÃO: Este código é apenas para apresentação de trabalho academico, não sendo aplicado para outros fins Att: Thiago_4644337-->
+    </body>
+</html>

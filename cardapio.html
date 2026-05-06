@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cardápio</title>
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="style.css">
+        </script>
+    </head>
+    <body>
+        <!--Menu superior navegavel //thiago_4644337 -->
+        <header>
+            <button class="menu-toggle">☰</button>
+            <nav>
+                <ul>
+                    <li><a href = "index.html">Home</a></li>
+                    <li><a href = "login.html">Entre ou Cadastre-se</a></li>
+                    <li><a href = "lanchonete.html">Lanchonetes/Cardápio</a></li>
+                    <li><a href = "carrinho.html">Carrinho</a></li>
+                </ul>
+            </nav>
+            <!-- Mostrando primeiro nome do usúario quando logado// thiago_4644337-->
+            <div id = "user-icon" style = "display: none;">
+                <span id = "user-name"> </span>
+                <div id = "user-menu" style="display: none;">
+                    <p id = "user-info"></p>
+                    <button id = "logout-btn">Sair</button>
+                </div>
+            </div>
+        </header>
+        <!--Tela principal do site //thiago_4644337 -->
+        <main>
+            <section class="cardapio-section">
+                <h2 id = "cidade-titulo">Cardápio</h2>
+                <div class = "pratos-grid" id = "pratos-grid">
+                    <!-- Pratos serão inseridos aqui via JS -->
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2026 D.Francisca. Todos os direitos reservados.</p>
+        </footer>
+        <!--Captura da cidade referente //thiago_4644337 -->
+         <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const cidade = urlParams.get('cidade') || 'Recife';
+            document.addEventListener('DOMContentLoaded', function() {
+                mostrarCardapio(cidade);
+            });
+        </script>
+        <!-- ATENÇÃO: Este código é apenas para apresentação de trabalho academico, não sendo aplicado para outros fins Att: Thiago_4644337-->
+    </body>
+</html>

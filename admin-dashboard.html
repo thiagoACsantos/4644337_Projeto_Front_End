@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Área do Administrador</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <!--Menu superior navegavel //thiago_4644337 -->
+        <header>
+            <button class = "menu-toggle">☰</button>
+            <nav>
+                <ul>
+                    <li><a href = "index.html">Home</a></li>
+                    <li><a href = "login.html">Login</a></li>
+                    <li><a href = "lanchonete.html">Lanchonetes/Cardápio</a></li>
+                    <li><a href = "carrinho.html">Carrinho</a></li>
+                </ul>
+            </nav>
+            <!-- Mostrando primeiro nome do usúario quando logado// thiago_4644337-->
+            <div id="user-icon" style="display: none;">
+                <span id = "user-name"></span>
+                <div id = "user-menu" style="display: none;">
+                    <p id = "user-info"></p>
+                    <button id = "logout-btn">Sair</button>
+                </div>
+            </div>
+        </header>
+        <!--Tela principal do ADM //thiago_4644337 -->
+        <main>
+            <section class = "admin-section">
+                <h2>Área do Administrador</h2>
+                <div class = "admin-dashboard">
+                    <div class = "dashboard-card">
+                        <h3>Valor Total Bruto de Vendas</h3>
+                        <p class = "dashboard-value" id="total-vendas">R$ 0,00</p>
+                    </div>
+                    <div class = "dashboard-card">
+                        <h3>Valor Total Líquido de Receita</h3>
+                        <p class = "dashboard-value" id="total-liquido">R$ 0,00</p>
+                    </div>
+                </div>
+                <div class = "estoque-section">
+                    <h3>Relatório do Estoque de Produtos Armazenados</h3>
+                    <table id = "estoque-tabela">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Cidade</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody id="estoque-corpo"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2026 D.Francisca. Todos os direitos reservados.</p>
+        </footer>
+        <script>
+            //Função da Área do administrador //thiago_4644337
+            function initAdminDashboard() {
+                const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+                if (!usuarioLogado||!usuarioLogado.isAdmin) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const totalVendas = 15000.00;
+                const totalLiquido = totalVendas*0.85; // 85% de lucro
+                document.getElementById('total-vendas').textContent = 'R$ ' + totalVendas.toFixed(2).replace('.', ',');
+                document.getElementById('total-liquido').textContent = 'R$ ' + totalLiquido.toFixed(2).replace('.', ',');
+                //Tela que mostra o estoque ao administrador //thiago_4644337 
+                const lanchonetes = {
+                    'Aracaju': [{ nome: 'Moqueca Sergipana', preco: 33.00, estoque: 25 },
+                        { nome: 'Carne de Sol com Abóbora', preco: 26.00, estoque: 35 },
+                        { nome: 'Arroz de Carreteiro', preco: 20.00, estoque: 42 },
+                        { nome: 'Sopa de Galinha', preco: 18.00, estoque: 38 }],
+                    'João Pessoa': [{ nome: 'Galinhada Paraibana', preco: 30.00, estoque: 28 },
+                        { nome: 'Carne de Sol com Farofa', preco: 27.00, estoque: 32 },
+                        { nome: 'Tapioca Recheada', preco: 12.00, estoque: 50 },
+                        { nome: 'Buchada de Cabrito', preco: 40.00, estoque: 18 }],
+                    'Fortaleza': [{ nome: 'Peixada Cearense', preco: 32.00, estoque: 20 },
+                        { nome: 'Cuscuz com Charque', preco: 18.00, estoque: 40 },
+                        { nome: 'Buchada', preco: 35.00, estoque: 15 },
+                        { nome: 'Carne de Sol com Macaxeira', preco: 28.00, estoque: 30 }],
+                    'Salvador': [{ nome: 'Acarajé', preco: 20.00, estoque: 45 },
+                        { nome: 'Vatapá', preco: 35.00, estoque: 25 },
+                        { nome: 'Moqueca Baiana', preco: 40.00, estoque: 38 },
+                        { nome: 'Caruru', preco: 25.00, estoque: 32 },
+                        { nome: 'Abará', preco: 22.00, estoque: 48 },
+                        { nome: 'Sarapatel', preco: 30.00, estoque: 18 },
+                        { nome: 'Mungunzá', preco: 15.00, estoque: 55 },
+                        { nome: 'Efó', preco: 28.00, estoque: 22 }],
+                    'Recife': [{ nome: 'Baião de Dois', preco: 25.00, estoque: 50 },
+                        { nome: 'Carne de Sol', preco: 30.00, estoque: 35 },
+                        { nome: 'Moqueca de Peixe', preco: 35.00, estoque: 28 },
+                        { nome: 'Buchada de Bode', preco: 40.00, estoque: 20 },
+                        { nome: 'Tapioca', preco: 15.00, estoque: 60 },
+                        { nome: 'Cuscuz', preco: 20.00, estoque: 42 },
+                        { nome: 'Acarajé', preco: 18.00, estoque: 55 },
+                        { nome: 'Feijoada Nordestina', preco: 28.00, estoque: 30 }],
+                    'Natal': [{ nome: 'Camarão ao Molho', preco: 45.00, estoque: 25 },
+                        { nome: 'Baião de Dois Potiguar', preco: 22.00, estoque: 35 },
+                        { nome: 'Siri com Coco', preco: 38.00, estoque: 20 },
+                        { nome: 'Feijão Verde com Carne de Sol', preco: 25.00, estoque: 40 }]
+                    };
+                const tbody = document.getElementById('estoque-corpo');
+                for (const [cidade, produtos] of Object.entries(lanchonetes)) {
+                    produtos.forEach(produto => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${produto.nome}</td>
+                            <td>${cidade}</td>
+                            <td>${produto.estoque}</td>
+                            <td>R$ ${produto.preco.toFixed(2)}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+                }
+            }
+            document.addEventListener('DOMContentLoaded', initAdminDashboard);
+        </script>
+        <!-- ATENÇÃO: Este código é apenas para apresentação de trabalho academico, não sendo aplicado para outros fins Att: Thiago_4644337-->
+    </body>
+</html>
